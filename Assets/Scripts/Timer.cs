@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    private float time = 0.0f;
+    private float _time = 0.0f;
+    public float Time => _time;
 
     // Update is called once per frame
     void Update()
     {
-       time += Time.deltaTime; 
-    }
-
-    public float GetTime()
-    {
-        return time;
+       _time += UnityEngine.Time.deltaTime; 
     }
 
     public void ResetTime()
     {
-        time = 0.0f;
+        _time = 0.0f;
     }
 }

@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class TukiOW : Player
 {
+    public float hp = 3;
+
     [SerializeField]
     private Vector2 _movement;
 
-    [SerializeField]
-    private float _dodgeSpeed = 100000000.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    const float DODGE_FORCE = 12000f;
+    const float DODGE_TIME = .5f;
 
     // Update is called once per frame
     void Update()
@@ -22,10 +18,28 @@ public class TukiOW : Player
         _movement.x = Input.GetAxis("Horizontal");
         _movement.y = Input.GetAxis("Vertical");
 
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.Z) && State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
         {
-            State = PlayerState.DODGING;
-            _rb.velocity = _movement.normalized * _dodgeSpeed * Time.deltaTime;
-        }      
+            SetPlayerState(PlayerState.DODGING);
+        }
+
+        if(State == PlayerState.DODGING && _timer.Time > DODGE_TIME)
+        {
+            SetPlayerState(PlayerState.WALKING);
+        }   
+    }
+
+
+    override protected void SetPlayerState(PlayerState state)
+    {
+        switch (state)
+        {
+            case PlayerState.DODGING:
+                _rb.AddForce(_movement * DODGE_FORCE);
+                break;
+            default:
+                break;
+        }
+        base.SetPlayerState(state);
     }
 }

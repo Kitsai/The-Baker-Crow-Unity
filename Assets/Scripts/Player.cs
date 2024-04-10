@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     protected PlayerState _state;
 
     protected Timer _timer;
+
     protected Rigidbody2D _rb = null;
 
     void Awake() 
@@ -71,5 +72,10 @@ public class Player : MonoBehaviour
         get {
             return _rb.position;
         }
+    }
+
+    protected virtual void SetPlayerState(PlayerState state) {
+        State = state;
+        _timer.ResetTime();
     }
 }
