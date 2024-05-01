@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -32,6 +33,10 @@ public class Player : MonoBehaviour
 
     protected Rigidbody2D _rb = null;
 
+    protected Collider2D _col = null;
+
+    protected SpriteRenderer _sr = null;
+
     void Awake() 
     {
         if (Instance != null && Instance != this)
@@ -44,6 +49,8 @@ public class Player : MonoBehaviour
         }
         _timer = gameObject.AddComponent<Timer>();
         _rb = GetComponentInChildren<Rigidbody2D>();
+        _col = GetComponentInChildren<Collider2D>();
+        _sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Start is called before the first frame update

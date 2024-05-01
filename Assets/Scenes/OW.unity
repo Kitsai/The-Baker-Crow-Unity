@@ -370,8 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
+  hp: 3
   _movement: {x: 0, y: 0}
-  _dodgeSpeed: 1000
 --- !u!1 &1425620344
 GameObject:
   m_ObjectHideFlags: 0
