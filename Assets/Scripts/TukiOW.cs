@@ -77,44 +77,42 @@ public class TukiOW : Player
         switch (state)
         {
             case PlayerState.STANDING:
-                Sprite spS;
                     if (Math.Abs(_movement.x) > Math.Abs(_movement.y))
                     {
-                        spS = Resources.Load<Sprite>("Assets/Images/tuki_lado_idle.png");
+                        _sr.sprite = idleSprites[2];
                         _sr.flipX = _movement.x > 0;
                     }
                     else
                     {
                         if (_movement.y > 0)
                         {
-                            spS = Resources.Load<Sprite>("Assets/Images/Tuki_idle_costas.png");
+                            _sr.sprite = idleSprites[1];
                         }
                         else
                         {
-                            spS = Resources.Load<Sprite>("Assets/Images/Tuki_idle_front.png");
+                            _sr.sprite = idleSprites[0];
                         }
                     }
-                    _sr.sprite = spS;
                 break;
             case PlayerState.WALKING:
-                Sprite spW;
-                    if (Math.Abs(_movement.x) > Math.Abs(_movement.y))
+                
+                if (Math.Abs(_movement.x) > Math.Abs(_movement.y))
+                {
+                    _sr.sprite = idleSprites[2];
+                    _sr.flipX = _movement.x > 0;
+                }
+                else
+                {
+                    if (_movement.y > 0)
                     {
-                        spW = Resources.Load<Sprite>("Assets/Images/tuki_lado_idle.png");
-                        _sr.flipX = _movement.x > 0;
+                        _sr.sprite = idleSprites[1];
                     }
                     else
                     {
-                        if (_movement.y > 0)
-                        {
-                            spW = Resources.Load<Sprite>("Assets/Images/Tuki_idle_costas.png");
-                        }
-                        else
-                        {
-                            spW = Resources.Load<Sprite>("Assets/Images/Tuki_idle_front.png");
-                        }
+                        _sr.sprite = idleSprites[0];
                     }
-                    _sr.sprite = spW;
+                }
+                    
                 break;
             case PlayerState.DAMAGED:
                 if (State != PlayerState.DAMAGED)
