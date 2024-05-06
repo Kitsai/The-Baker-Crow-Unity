@@ -27,11 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponentInChildren<Rigidbody2D>();
 
-        if(Application.platform == RuntimePlatform.LinuxEditor || Application.platform == RuntimePlatform.LinuxPlayer ) {
-            rb.mass = 1.0f;
-        } else {
-            rb.mass = 10.0f;
-        }
+        rb.mass = 1.0f;
     }
     void Start()
     {
@@ -40,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");

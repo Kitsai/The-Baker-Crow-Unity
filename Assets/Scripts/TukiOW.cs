@@ -9,8 +9,9 @@ public class TukiOW : Player
 
     [SerializeField]
     private Vector2 _movement;
+    private bool _dash = false;
 
-    const float DODGE_FORCE = 10000f;
+    const float DODGE_FORCE = 1000f;
     const float DODGE_TIME = .5f;
 
     const float ATTACK_TIME = .4f;
@@ -125,7 +126,7 @@ public class TukiOW : Player
                 _sr.sprite = Resources.Load<Sprite>("Assets/Images/tuki_anim_attac.png"); 
                 break;
             case PlayerState.DODGING:
-                _rb.AddForce(_movement.normalized * DODGE_FORCE);
+                _dash = true;
                 break;
             default:
                 break;
@@ -133,6 +134,15 @@ public class TukiOW : Player
         base.SetPlayerState(state);
     }
     
+    void FixedUpdate() 
+    {
+        if(_dash) 
+        {
+            _dash = false;
+            _rb.AddForce(_movement * DODGE_FORCE);
+        }
+    }
+
     void DestroyPlayer()
     {
         Destroy(gameObject);
