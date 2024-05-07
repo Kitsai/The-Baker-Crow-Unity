@@ -13,54 +13,68 @@ public class PlayerController : MonoBehaviour
         Right
     }
 
-    private Rigidbody2D rb = null;
+    private Rigidbody2D _rb = null;
 
-    [SerializeField]
-    private float BASE_FORCE = 13.0f;
+    readonly float BASE_FORCE = 13.0f;
 
-    [SerializeField]
-    private FaceDirection faceDirection;
-    private float horizontalAxis;
-    private float verticalAxis;
+    public FaceDirection Facing {get; private set;}
+    private float _horizontalAxis;
+    private float _verticalAxis;
+    private bool _dash = false;
+    private
 
     void Awake()
     {
-        rb = GetComponentInChildren<Rigidbody2D>();
-
-        rb.mass = 1.0f;
+        _rb = GetComponentInChildren<Rigidbody2D>();
     }
     void Start()
     {
-        faceDirection = FaceDirection.Down;
+        Facing = FaceDirection.Down;
     }
 
 
     void FixedUpdate()
     {
-        horizontalAxis = Input.GetAxis("Horizontal");
-        verticalAxis = Input.GetAxis("Vertical");
+        _horizontalAxis = Input.GetAxis("Horizontal");
+        _verticalAxis = Input.GetAxis("Vertical");
 
-        rb.AddRelativeForce(new Vector2(horizontalAxis, verticalAxis) * BASE_FORCE);
-
-        if(Math.Abs(horizontalAxis) > Math.Abs(verticalAxis)) 
+        if(_dash)
         {
-            if(horizontalAxis > 0)
+            _rb.AddForce(2 * BASE_FORCE * new Vector2(_horizontalAxis, _verticalAxis));
+            _dash = false;
+        }
+
+        _rb.AddForce(new Vector2(_horizontalAxis, _verticalAxis) * BASE_FORCE);
+
+        if(Math.Abs(_horizontalAxis) > Math.Abs(_verticalAxis)) 
+        {
+            if(_horizontalAxis > 0)
             {
-                faceDirection = FaceDirection.Right;
+                Facing = FaceDirection.Right;
             }
             else
             {
-                faceDirection = FaceDirection.Left;
+                Facing = FaceDirection.Left;
             }
         } else {
-            if(verticalAxis > 0)
+            if(_verticalAxis > 0)
             {
-                faceDirection = FaceDirection.Up;
+                Facing = FaceDirection.Up;
             }
             else
             {
-                faceDirection = FaceDirection.Down;
+                Facing = FaceDirection.Down;
             }
         }
+    }
+
+    public void Dash() 
+    {
+        _dash = true;
+    }
+
+    public void Attack() 
+    {
+        // Attack logic
     }
 }

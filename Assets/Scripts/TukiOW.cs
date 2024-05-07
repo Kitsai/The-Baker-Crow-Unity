@@ -28,9 +28,6 @@ public class TukiOW : Player
             DestroyPlayer();
         }
 
-        _movement.x = Input.GetAxis("Horizontal");
-        _movement.y = Input.GetAxis("Vertical");
-
         if(Input.GetKeyDown(KeyCode.X) && State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
         {
             SetPlayerState(PlayerState.ATTACKING);
@@ -78,52 +75,13 @@ public class TukiOW : Player
         switch (state)
         {
             case PlayerState.STANDING:
-                    if (Math.Abs(_movement.x) > Math.Abs(_movement.y))
-                    {
-                        _sr.sprite = idleSprites[2];
-                        _sr.flipX = _movement.x > 0;
-                    }
-                    else
-                    {
-                        if (_movement.y > 0)
-                        {
-                            _sr.sprite = idleSprites[1];
-                        }
-                        else
-                        {
-                            _sr.sprite = idleSprites[0];
-                        }
-                    }
                 break;
-            case PlayerState.WALKING:
-                
-                if (Math.Abs(_movement.x) > Math.Abs(_movement.y))
-                {
-                    _sr.sprite = idleSprites[2];
-                    _sr.flipX = _movement.x > 0;
-                }
-                else
-                {
-                    if (_movement.y > 0)
-                    {
-                        _sr.sprite = idleSprites[1];
-                    }
-                    else
-                    {
-                        _sr.sprite = idleSprites[0];
-                    }
-                }
-                    
+            case PlayerState.WALKING:                   
                 break;
             case PlayerState.DAMAGED:
-                if (State != PlayerState.DAMAGED)
-                {
-                    hp--;
-                    _sr.sprite = Resources.Load<Sprite>("Assets/Images/tuki_anim_dano.png");
-                }
+                hp--;
                 break;
             case PlayerState.ATTACKING:
-                _sr.sprite = Resources.Load<Sprite>("Assets/Images/tuki_anim_attac.png"); 
                 break;
             case PlayerState.DODGING:
                 _dash = true;

@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     protected Collider2D _col = null;
 
-    protected SpriteRenderer _sr = null;
+    protected PlayerController _pc = null;
 
     void Awake() 
     {
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         _timer = gameObject.AddComponent<Timer>();
         _rb = GetComponentInChildren<Rigidbody2D>();
         _col = GetComponentInChildren<Collider2D>();
-        _sr = GetComponentInChildren<SpriteRenderer>();
+        _pc = GetComponentInChildren<PlayerController>();
     }
 
     // Start is called before the first frame update
