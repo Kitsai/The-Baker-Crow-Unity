@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb = null;
     private Animator _animator = null;
 
-    const float BASE_FORCE = 13.0f;
-    const float DODGE_FORCE = 1000f;
+    const float BASE_FORCE = 20.0f;
+    const float DODGE_FORCE = 1200f;
 
     public FaceDirection Facing {get; private set;}
     private Vector2 _axis;

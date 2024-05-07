@@ -14,6 +14,7 @@ public class TukiOW : Player
 
     const float ATTACK_TIME = .4f;
     const float ATTACK_COOLDOWN = 1.0f;
+    const float DAMAGED_TIME = .5f;
 
     public Sprite[] idleSprites;
     public Sprite[] walkSprites;
@@ -36,6 +37,11 @@ public class TukiOW : Player
             SetPlayerState(PlayerState.DODGING);
         }
 
+        if(Input.GetKeyDown(KeyCode.K) && State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
+        {
+            SetPlayerState(PlayerState.DAMAGED);
+        }
+
         switch (State) 
         {
             case PlayerState.DODGING:
@@ -46,6 +52,12 @@ public class TukiOW : Player
                 break;
             case PlayerState.ATTACKING:
                 if(_timer.Time > ATTACK_TIME)
+                {
+                    SetPlayerState(PlayerState.STANDING);
+                }
+                break;
+            case PlayerState.DAMAGED:
+                if(_timer.Time > DAMAGED_TIME)
                 {
                     SetPlayerState(PlayerState.STANDING);
                 }
