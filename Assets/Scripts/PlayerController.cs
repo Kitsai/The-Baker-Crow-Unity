@@ -14,18 +14,21 @@ public class PlayerController : MonoBehaviour
     }
 
     private Rigidbody2D _rb = null;
+    private Animator _animator = null;
 
-    readonly float BASE_FORCE = 13.0f;
+    const float BASE_FORCE = 13.0f;
+    const float DODGE_FORCE = 1000f;
 
     public FaceDirection Facing {get; private set;}
-    private float _horizontalAxis;
-    private float _verticalAxis;
+    private Vector2 _axis;
     private bool _dash = false;
-    private
+    private bool _attack = false;
+    private bool _damaged = false;
 
     void Awake()
     {
         _rb = GetComponentInChildren<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
     }
     void Start()
     {
@@ -35,46 +38,53 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _horizontalAxis = Input.GetAxis("Horizontal");
-        _verticalAxis = Input.GetAxis("Vertical");
+        _axis.x = Input.GetAxis("Horizontal");
+        _axis.y = Input.GetAxis("Vertical");
 
         if(_dash)
         {
-            _rb.AddForce(2 * BASE_FORCE * new Vector2(_horizontalAxis, _verticalAxis));
+            _rb.AddForce(DODGE_FORCE * new Vector2(_axis.x, _axis.y));
             _dash = false;
         }
 
-        _rb.AddForce(new Vector2(_horizontalAxis, _verticalAxis) * BASE_FORCE);
+        _rb.AddForce(new Vector2(_axis.x, _axis.y) * BASE_FORCE);
 
-        if(Math.Abs(_horizontalAxis) > Math.Abs(_verticalAxis)) 
+        if(Math.Abs(_axis.x) > Math.Abs(_axis.y)) 
         {
-            if(_horizontalAxis > 0)
-            {
-                Facing = FaceDirection.Right;
-            }
-            else
-            {
-                Facing = FaceDirection.Left;
-            }
-        } else {
-            if(_verticalAxis > 0)
-            {
-                Facing = FaceDirection.Up;
-            }
-            else
-            {
-                Facing = FaceDirection.Down;
-            }
+            if(_axis.x > 0) Facing = FaceDirection.Right;
+            else Facing = FaceDirection.Left;
+        } else if (Math.Abs(_axis.x) < Math.Abs(_axis.y)){
+            if(_axis.y > 0) Facing = FaceDirection.Up;
+            else Facing = FaceDirection.Down;
+        } 
+
+        if(_attack || _damaged)
+        {
+            _rb.velocity = Vector2.zero;
+            _rb.totalForce = Vector2.zero;
+            Facing = FaceDirection.Down;
         }
+
+        _animator.SetInteger("Facing", (int)Facing);
+
+        if(_rb.velocity.magnitude <= 0.1f && !_attack && !_damaged) _animator.SetBool("Idle", true);
+        else _animator.SetBool("Idle", false);
     }
 
-    public void Dash() 
+    public void Dodge() 
     {
         _dash = true;
     }
 
-    public void Attack() 
+    public void AttackToggle() 
     {
-        // Attack logic
+        _attack = !_attack;
+        if(_attack) _animator.SetTrigger("Attacking");
+    }
+
+    public void TakeDamageToggle() 
+    {
+        _damaged = !_damaged;
+        if(_damaged) _animator.SetTrigger("Damaged");
     }
 }

@@ -9,9 +9,7 @@ public class TukiOW : Player
 
     [SerializeField]
     private Vector2 _movement;
-    private bool _dash = false;
 
-    const float DODGE_FORCE = 1000f;
     const float DODGE_TIME = .5f;
 
     const float ATTACK_TIME = .4f;
@@ -74,32 +72,24 @@ public class TukiOW : Player
     {
         switch (state)
         {
-            case PlayerState.STANDING:
-                break;
-            case PlayerState.WALKING:                   
-                break;
             case PlayerState.DAMAGED:
                 hp--;
+                _pc.TakeDamageToggle();
                 break;
             case PlayerState.ATTACKING:
+                _pc.AttackToggle();
                 break;
             case PlayerState.DODGING:
-                _dash = true;
+                _pc.Dodge();
                 break;
             default:
+                if(State == PlayerState.DAMAGED) _pc.TakeDamageToggle();
+                if(State == PlayerState.ATTACKING) _pc.AttackToggle();
                 break;
         }
         base.SetPlayerState(state);
     }
-    
-    void FixedUpdate() 
-    {
-        if(_dash) 
-        {
-            _dash = false;
-            _rb.AddForce(_movement * DODGE_FORCE);
-        }
-    }
+
 
     void DestroyPlayer()
     {
