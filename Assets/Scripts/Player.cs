@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
             Instance = this;
         }
         _timer = gameObject.AddComponent<Timer>();
-        _playerController = GetComponentInChildren<PlayerController>();
+        _playerController = gameObject.AddComponent<PlayerController>();
     }
 
     // Start is called before the first frame update
