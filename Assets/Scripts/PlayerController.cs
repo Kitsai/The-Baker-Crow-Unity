@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetInteger("Facing", (int)Facing);
 
-        if(_rb.velocity.magnitude <= 0.1f && !_attack && !_damaged) _animator.SetBool("Idle", true);
+        if(_rb.velocity.magnitude <= 0.2f && !_attack && !_damaged) _animator.SetBool("Idle", true);
         else _animator.SetBool("Idle", false);
     }
 

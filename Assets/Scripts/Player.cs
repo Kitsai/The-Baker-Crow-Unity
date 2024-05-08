@@ -17,17 +17,18 @@ public class Player : MonoBehaviour
         DAMAGED
     }
 
-    public PlayerState State {
-        get {
-            return _state;
-        } 
-        protected set {
-            _state = value;
-        }
-    }
+    public float hp = 3;
 
     [SerializeField]
-    protected PlayerState _state;
+    private Vector2 _movement;
+
+    const float DODGE_TIME = .5f;
+
+    const float ATTACK_TIME = .4f;
+    const float ATTACK_COOLDOWN = 1.0f;
+    const float DAMAGED_TIME = .5f;
+
+    public PlayerState State { get; protected set; }
 
     protected Timer _timer;
 
@@ -60,18 +61,42 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        if(_rb.velocity.magnitude <= 0.1f 
-        && State != PlayerState.DAMAGED 
-        && State != PlayerState.ATTACKING 
-        && State != PlayerState.DODGING
-        ) {
-            State = PlayerState.STANDING;
-        }
-        else
+        switch (State) 
         {
-            State = PlayerState.WALKING;
+            case PlayerState.DODGING:
+                if(_timer.Time > DODGE_TIME)
+                {
+                    SetPlayerState(PlayerState.WALKING);
+                }
+                break;
+            case PlayerState.ATTACKING:
+                if(_timer.Time > ATTACK_TIME)
+                {
+                    SetPlayerState(PlayerState.STANDING);
+                }
+                break;
+            case PlayerState.DAMAGED:
+                if(_timer.Time > DAMAGED_TIME)
+                {
+                    SetPlayerState(PlayerState.STANDING);
+                }
+                break;
+            case PlayerState.WALKING:
+                if(_movement.magnitude == 0)
+                {
+                    SetPlayerState(PlayerState.STANDING);
+                }
+                break;
+            case PlayerState.STANDING:
+                if(_movement.magnitude > 0)
+                {
+                    SetPlayerState(PlayerState.WALKING);
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -82,7 +107,30 @@ public class Player : MonoBehaviour
     }
 
     protected virtual void SetPlayerState(PlayerState state) {
+        switch (state)
+        {
+            case PlayerState.DAMAGED:
+                hp--;
+                _pc.TakeDamageToggle();
+                break;
+            case PlayerState.ATTACKING:
+                _pc.AttackToggle();
+                break;
+            case PlayerState.DODGING:
+                _pc.Dodge();
+                break;
+            default:
+                if(State == PlayerState.DAMAGED) _pc.TakeDamageToggle();
+                if(State == PlayerState.ATTACKING) _pc.AttackToggle();
+                break;
+        }
+
         State = state;
         _timer.ResetTime();
+    }
+
+    protected void DestroyPlayer()
+    {
+        Destroy(gameObject);
     }
 }
