@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 718861924}
   - component: {fileID: 718861923}
   - component: {fileID: 718861929}
-  - component: {fileID: 718861922}
   - component: {fileID: 718861925}
   - component: {fileID: 718861926}
   m_Layer: 0
@@ -250,18 +249,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &718861922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718861921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3039ef81184904b9320b2379468d77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &718861923
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -368,17 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ea3f4e6b2703178a8203c81cc39834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 0
   hp: 3
   _movement: {x: 0, y: 0}
-  idleSprites:
-  - {fileID: 21300000, guid: 68846a66759a29535a40d83dc9c824e9, type: 3}
-  - {fileID: 21300000, guid: 4faaec84f82f3fcc292cbe8b810d20b5, type: 3}
-  - {fileID: 21300000, guid: 079828137bbefad36ae88f6065e8d65d, type: 3}
-  walkSprites:
-  - {fileID: 343967598, guid: 33dbf45a939fcb247a459c4aad7cfdc8, type: 3}
-  - {fileID: 21300000, guid: 43bba67100f456a55869316e4351c6a3, type: 3}
-  - {fileID: 1082136446, guid: aa504fac2b5dc8a6aae5d91d9ee013b5, type: 3}
 --- !u!95 &718861929
 Animator:
   serializedVersion: 5

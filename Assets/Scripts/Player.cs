@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -37,13 +34,10 @@ public class Player : MonoBehaviour
     void Awake() 
     {
         if (Instance != null && Instance != this)
-        {
             Destroy(this);
-        }
         else
-        {
             Instance = this;
-        }
+
         _timer = gameObject.AddComponent<Timer>();
         _playerController = gameObject.AddComponent<PlayerController>();
     }
@@ -60,34 +54,19 @@ public class Player : MonoBehaviour
         switch (State) 
         {
             case PlayerState.DODGING:
-                if(_timer.Time > DODGE_TIME)
-                {
-                    SetPlayerState(PlayerState.WALKING);
-                }
+                if(_timer.Time > DODGE_TIME) SetPlayerState(PlayerState.WALKING);
                 break;
             case PlayerState.ATTACKING:
-                if(_timer.Time > ATTACK_TIME)
-                {
-                    SetPlayerState(PlayerState.STANDING);
-                }
+                if(_timer.Time > ATTACK_TIME) SetPlayerState(PlayerState.STANDING);
                 break;
             case PlayerState.DAMAGED:
-                if(_timer.Time > DAMAGED_TIME)
-                {
-                    SetPlayerState(PlayerState.STANDING);
-                }
+                if(_timer.Time > DAMAGED_TIME) SetPlayerState(PlayerState.STANDING);
                 break;
             case PlayerState.WALKING:
-                if(_movement.magnitude == 0)
-                {
-                    SetPlayerState(PlayerState.STANDING);
-                }
+                if(_movement.magnitude == 0) SetPlayerState(PlayerState.STANDING);
                 break;
             case PlayerState.STANDING:
-                if(_movement.magnitude > 0)
-                {
-                    SetPlayerState(PlayerState.WALKING);
-                }
+                if(_movement.magnitude > 0) SetPlayerState(PlayerState.WALKING);
                 break;
             default:
                 break;
