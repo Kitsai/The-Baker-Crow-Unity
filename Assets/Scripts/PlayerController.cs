@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
         Right
     }
 
-    private Rigidbody2D _rb = null;
+    private Rigidbody2D _RigidBody = null;
     private Animator _animator = null;
 
     const float BASE_FORCE = 20.0f;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        _rb = GetComponentInChildren<Rigidbody2D>();
+        _RigidBody = GetComponentInChildren<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
     }
     void Start()
@@ -43,31 +43,33 @@ public class PlayerController : MonoBehaviour
 
         if(_dash)
         {
-            _rb.AddForce(DODGE_FORCE * new Vector2(_axis.x, _axis.y));
+            _RigidBody.AddForce(DODGE_FORCE * new Vector2(_axis.x, _axis.y));
             _dash = false;
         }
 
-        _rb.AddForce(new Vector2(_axis.x, _axis.y) * BASE_FORCE);
+        _RigidBody.AddForce(new Vector2(_axis.x, _axis.y) * BASE_FORCE);
 
         if(Math.Abs(_axis.x) > Math.Abs(_axis.y)) 
         {
             if(_axis.x > 0) Facing = FaceDirection.Right;
             else Facing = FaceDirection.Left;
-        } else if (Math.Abs(_axis.x) < Math.Abs(_axis.y)){
+        } 
+        else if (Math.Abs(_axis.x) < Math.Abs(_axis.y))
+        {
             if(_axis.y > 0) Facing = FaceDirection.Up;
             else Facing = FaceDirection.Down;
         } 
 
         if(_attack || _damaged)
         {
-            _rb.velocity = Vector2.zero;
-            _rb.totalForce = Vector2.zero;
+            _RigidBody.velocity = Vector2.zero;
+            _RigidBody.totalForce = Vector2.zero;
             Facing = FaceDirection.Down;
         }
 
         _animator.SetInteger("Facing", (int)Facing);
 
-        if(_rb.velocity.magnitude <= 0.2f && !_attack && !_damaged) _animator.SetBool("Idle", true);
+        if(_RigidBody.velocity.magnitude <= 0.2f && !_attack && !_damaged) _animator.SetBool("Idle", true);
         else _animator.SetBool("Idle", false);
     }
 

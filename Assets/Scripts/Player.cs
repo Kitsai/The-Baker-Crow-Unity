@@ -32,11 +32,7 @@ public class Player : MonoBehaviour
 
     protected Timer _timer;
 
-    protected Rigidbody2D _rb = null;
-
-    protected Collider2D _col = null;
-
-    protected PlayerController _pc = null;
+    protected PlayerController _playerController = null;
 
     void Awake() 
     {
@@ -49,9 +45,7 @@ public class Player : MonoBehaviour
             Instance = this;
         }
         _timer = gameObject.AddComponent<Timer>();
-        _rb = GetComponentInChildren<Rigidbody2D>();
-        _col = GetComponentInChildren<Collider2D>();
-        _pc = GetComponentInChildren<PlayerController>();
+        _playerController = GetComponentInChildren<PlayerController>();
     }
 
     // Start is called before the first frame update
@@ -100,28 +94,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    public Vector2 Position {
-        get {
-            return _rb.position;
-        }
-    }
-
     protected virtual void SetPlayerState(PlayerState state) {
         switch (state)
         {
             case PlayerState.DAMAGED:
                 hp--;
-                _pc.TakeDamageToggle();
+                _playerController.TakeDamageToggle();
                 break;
             case PlayerState.ATTACKING:
-                _pc.AttackToggle();
+                _playerController.AttackToggle();
                 break;
             case PlayerState.DODGING:
-                _pc.Dodge();
+                _playerController.Dodge();
                 break;
             default:
-                if(State == PlayerState.DAMAGED) _pc.TakeDamageToggle();
-                if(State == PlayerState.ATTACKING) _pc.AttackToggle();
+                if(State == PlayerState.DAMAGED) _playerController.TakeDamageToggle();
+                if(State == PlayerState.ATTACKING) _playerController.AttackToggle();
                 break;
         }
 
