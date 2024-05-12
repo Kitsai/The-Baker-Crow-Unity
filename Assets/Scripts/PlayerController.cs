@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,7 +18,7 @@ public class PlayerController : MonoBehaviour
     const float DODGE_FORCE = 1200f;
 
     public FaceDirection Facing {get; private set;}
-    private Vector2 _axis;
+    public Vector2 axis;
     private bool _dash = false;
     private bool _attack = false;
     private bool _damaged = false;
@@ -35,30 +33,15 @@ public class PlayerController : MonoBehaviour
         Facing = FaceDirection.Down;
     }
 
-
     void FixedUpdate()
     {
-        _axis.x = Input.GetAxis("Horizontal");
-        _axis.y = Input.GetAxis("Vertical");
-
         if(_dash)
         {
-            _RigidBody.AddForce(DODGE_FORCE * new Vector2(_axis.x, _axis.y));
+            _RigidBody.AddForce(DODGE_FORCE * new Vector2(axis.x, axis.y));
             _dash = false;
         }
 
-        _RigidBody.AddForce(new Vector2(_axis.x, _axis.y) * BASE_FORCE);
-
-        if(Math.Abs(_axis.x) > Math.Abs(_axis.y)) 
-        {
-            if(_axis.x > 0) Facing = FaceDirection.Right;
-            else Facing = FaceDirection.Left;
-        } 
-        else if (Math.Abs(_axis.x) < Math.Abs(_axis.y))
-        {
-            if(_axis.y > 0) Facing = FaceDirection.Up;
-            else Facing = FaceDirection.Down;
-        } 
+        _RigidBody.AddForce(new Vector2(axis.x, axis.y) * BASE_FORCE);
 
         if(_attack || _damaged)
         {
@@ -66,8 +49,6 @@ public class PlayerController : MonoBehaviour
             _RigidBody.totalForce = Vector2.zero;
             Facing = FaceDirection.Down;
         }
-
-        _animator.SetInteger("Facing", (int)Facing);
 
         if(_RigidBody.velocity.magnitude <= 0.2f && !_attack && !_damaged) _animator.SetBool("Idle", true);
         else _animator.SetBool("Idle", false);
@@ -88,5 +69,22 @@ public class PlayerController : MonoBehaviour
     {
         _damaged = !_damaged;
         if(_damaged) _animator.SetTrigger("Damaged");
+    }
+
+    public void OnMovement(Vector2 movement)
+    {
+        axis = movement;
+        if(Math.Abs(axis.x) > Math.Abs(axis.y)) 
+        {
+            if(axis.x > 0) Facing = FaceDirection.Right;
+            else Facing = FaceDirection.Left;
+        } 
+        else if (Math.Abs(axis.x) < Math.Abs(axis.y))
+        {
+            if(axis.y > 0) Facing = FaceDirection.Up;
+            else Facing = FaceDirection.Down;
+        }
+        
+        _animator.SetInteger("Facing", (int)Facing);
     }
 }

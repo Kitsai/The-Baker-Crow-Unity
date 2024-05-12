@@ -30,8 +30,9 @@ public class Player : MonoBehaviour
     protected Timer _timer;
 
     protected PlayerController _playerController = null;
+    protected PlayerInputActions _inputActions = null;
 
-    void Awake() 
+    public virtual void Awake() 
     {
         if (Instance != null && Instance != this)
             Destroy(this);
@@ -40,12 +41,17 @@ public class Player : MonoBehaviour
 
         _timer = gameObject.AddComponent<Timer>();
         _playerController = gameObject.AddComponent<PlayerController>();
+
+        _inputActions = new PlayerInputActions();
+        _inputActions.Tuki.Enable();
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
-        State = PlayerState.STANDING; 
+        State = PlayerState.STANDING;
+        _inputActions.Tuki.Movement.performed += ctx => _playerController.OnMovement(ctx.ReadValue<Vector2>()); 
+        _inputActions.Tuki.Movement.canceled += ctx => _playerController.OnMovement(Vector2.zero);
     }
 
     // Update is called once per frame
