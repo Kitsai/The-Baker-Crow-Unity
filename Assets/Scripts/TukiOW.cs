@@ -14,8 +14,15 @@ public class TukiOW : Player
  
     }
 
-    public void OnDisable()
+    public override void OnEnable()
     {
+        base.OnEnable();
+        _inputActions.Tuki.Enable();
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
         _inputActions.Tuki.Disable();
     }
 

@@ -39,19 +39,29 @@ public class Player : MonoBehaviour
         else
             Instance = this;
 
-        _timer = gameObject.AddComponent<Timer>();
-        _playerController = gameObject.AddComponent<PlayerController>();
+        _timer = GetComponentInChildren<Timer>();
+        _playerController = GetComponentInChildren<PlayerController>();
 
         _inputActions = new PlayerInputActions();
-        _inputActions.Tuki.Enable();
+        _inputActions.Base.Enable();
     }
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         State = PlayerState.STANDING;
-        _inputActions.Tuki.Movement.performed += ctx => _playerController.OnMovement(ctx.ReadValue<Vector2>()); 
-        _inputActions.Tuki.Movement.canceled += ctx => _playerController.OnMovement(Vector2.zero);
+        _inputActions.Base.Movement.performed += ctx => _playerController.OnMovement(ctx.ReadValue<Vector2>()); 
+        _inputActions.Base.Movement.canceled += ctx => _playerController.OnMovement(Vector2.zero);
+    }
+
+    public virtual void OnEnable()
+    {
+        _inputActions.Base.Enable();
+    }
+
+    public virtual void OnDisable()
+    {
+        _inputActions.Base.Disable();
     }
 
     // Update is called once per frame
