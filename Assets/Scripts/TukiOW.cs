@@ -1,17 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+
 
 public class TukiOW : Player
-{   
+{     
 
     public override void Start()
     {
         base.Start();
         _inputActions.Tuki.Attack.performed += ctx => OnAttack();
         _inputActions.Tuki.Dodge.performed += ctx => OnDodge();
- 
     }
 
     public override void OnEnable()
@@ -28,11 +25,12 @@ public class TukiOW : Player
 
     public void OnAttack()
     {
-        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
+        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED && _playerController.CanAttack)
         {
             SetPlayerState(PlayerState.ATTACKING);
         }
     }
+
 
     public void OnDodge()
     {

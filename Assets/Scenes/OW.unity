@@ -241,8 +241,9 @@ GameObject:
   - component: {fileID: 718861923}
   - component: {fileID: 718861929}
   - component: {fileID: 718861925}
-  - component: {fileID: 718861926}
   - component: {fileID: 718861930}
+  - component: {fileID: 718861931}
+  - component: {fileID: 718861926}
   m_Layer: 0
   m_Name: TukiOW
   m_TagString: Player
@@ -413,26 +414,27 @@ MonoBehaviour:
     m_ActionId: d549aac8-328e-4057-9c38-4a7b36329335
     m_ActionName: Tuki/Dodge[/Keyboard/z,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 718861921}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e49410ae-ca73-4b4f-9b7c-b89390664121
-    m_ActionName: Tuki/Movement[/XInputControllerWindows/leftStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+      m_Calls: []
+    m_ActionId: b4788532-d246-4d68-a72d-79ac08c791b0
+    m_ActionName: Base/Movement[/SwitchProControllerHID/leftStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Tuki
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &718861931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718861921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3039ef81184904b9320b2379468d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 0}
 --- !u!1 &1425620344
 GameObject:
   m_ObjectHideFlags: 0

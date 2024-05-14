@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,14 +21,7 @@ public class Player : MonoBehaviour
     private Vector2 _movement;
 
     const float DODGE_TIME = .5f;
-
-    const float ATTACK_TIME = .4f;
-    const float ATTACK_COOLDOWN = 1.0f;
-    const float DAMAGED_TIME = .5f;
-
     public PlayerState State { get; protected set; }
-
-    protected Timer _timer;
 
     protected PlayerController _playerController = null;
     protected PlayerInputActions _inputActions = null;
@@ -39,7 +33,6 @@ public class Player : MonoBehaviour
         else
             Instance = this;
 
-        _timer = GetComponentInChildren<Timer>();
         _playerController = GetComponentInChildren<PlayerController>();
 
         _inputActions = new PlayerInputActions();
@@ -69,14 +62,11 @@ public class Player : MonoBehaviour
     {
         switch (State) 
         {
-            case PlayerState.DODGING:
-                if(_timer.Time > DODGE_TIME) SetPlayerState(PlayerState.WALKING);
-                break;
             case PlayerState.ATTACKING:
-                if(_timer.Time > ATTACK_TIME) SetPlayerState(PlayerState.STANDING);
+                if(!_playerController.Attacking) SetPlayerState(PlayerState.STANDING);
                 break;
             case PlayerState.DAMAGED:
-                if(_timer.Time > DAMAGED_TIME) SetPlayerState(PlayerState.STANDING);
+                if(!_playerController.Damaged) SetPlayerState(PlayerState.STANDING);
                 break;
             case PlayerState.WALKING:
                 if(_movement.magnitude == 0) SetPlayerState(PlayerState.STANDING);
@@ -89,27 +79,37 @@ public class Player : MonoBehaviour
         }
     }
 
+    protected virtual IEnumerator WaitAndSetState(PlayerState state, float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetPlayerState(state);
+    }
+
+    protected virtual IEnumerator RunAndWait(IEnumerator coroutine, float time)
+    {
+        yield return StartCoroutine(coroutine);
+        yield return new WaitForSeconds(time);
+    }
+
     protected virtual void SetPlayerState(PlayerState state) {
         switch (state)
         {
             case PlayerState.DAMAGED:
                 hp--;
-                _playerController.TakeDamageToggle();
+                _playerController.TakeDamageTrigger();
                 break;
             case PlayerState.ATTACKING:
-                _playerController.AttackToggle();
+                _playerController.AttackTrigger();
                 break;
             case PlayerState.DODGING:
                 _playerController.Dodge();
+                StartCoroutine(WaitAndSetState(PlayerState.STANDING, DODGE_TIME));
                 break;
             default:
-                if(State == PlayerState.DAMAGED) _playerController.TakeDamageToggle();
-                if(State == PlayerState.ATTACKING) _playerController.AttackToggle();
                 break;
         }
 
         State = state;
-        _timer.ResetTime();
     }
 
     protected void DestroyPlayer()
