@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private bool _dash = false;
     public bool Attacking {get; private set;}
     public  bool CanAttack {get; private set;}
+    public GameObject _attack;
     public bool Damaged {get; private set;}
 
     void Awake()
@@ -77,10 +78,14 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PerformAttack()
     {
         Attacking = true;
+        GameObject attack = Instantiate(_attack, transform.position, Quaternion.identity);
+        attack.GetComponent<Attack>().origin = gameObject;
         _animator.SetTrigger("Attacking");
+
 
         yield return new WaitForSeconds(ATTACK_TIME);
 
+        Destroy(attack);
         Attacking = false;
         StartCoroutine(AttackCooldown());
     }

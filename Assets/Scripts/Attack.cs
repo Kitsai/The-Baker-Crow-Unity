@@ -13,25 +13,20 @@ public class Attack : MonoBehaviour
         Ranged
     }
 
-    [SerializeField]
-    private GameObject _origin = null;
+    public GameObject origin;
 
     public bool Friendly {get; private set;}
 
     void Awake()
     {
-        Friendly = _origin.CompareTag(PLAYER_TAG);
+        Friendly = origin.CompareTag(PLAYER_TAG);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(!Friendly && other.CompareTag(PLAYER_TAG))
+        {
+            Player player = Player.Instance;
+        }
     }
 }
