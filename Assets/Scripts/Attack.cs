@@ -13,11 +13,11 @@ public class Attack : MonoBehaviour
         Ranged
     }
 
-    public GameObject origin;
+    public GameObject origin = null;
 
     public bool Friendly {get; private set;}
 
-    void Awake()
+    void Start()
     {
         Friendly = origin.CompareTag(PLAYER_TAG);
     }
