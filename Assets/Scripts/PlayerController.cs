@@ -44,6 +44,12 @@ public class PlayerController : MonoBehaviour
         CanAttack = true;
     }
 
+    void Update() 
+    {
+        _animator.SetInteger("Facing", (int)Facing);
+        if(!Attacking && !Damaged) _animator.SetBool("Idle", _RigidBody.velocity.magnitude <= 0.2f);
+    }
+
     void FixedUpdate()
     {
         if(_dash)
@@ -60,9 +66,6 @@ public class PlayerController : MonoBehaviour
             _RigidBody.totalForce = Vector2.zero;
             Facing = FaceDirection.Down;
         }
-
-        if(_RigidBody.velocity.magnitude <= 0.2f && !Attacking && !Damaged) _animator.SetBool("Idle", true);
-        else _animator.SetBool("Idle", false);
     }
 
     public void Dodge() 
@@ -125,7 +128,5 @@ public class PlayerController : MonoBehaviour
             if(axis.y > 0) Facing = FaceDirection.Up;
             else Facing = FaceDirection.Down;
         }
-        
-        _animator.SetInteger("Facing", (int)Facing);
     }
 }
