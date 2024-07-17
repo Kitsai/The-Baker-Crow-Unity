@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Houses
+    uniqueID: 2000926757
+    locked: 0
+  - name: Tuki
+    uniqueID: 3436472553
+    locked: 0
+  - name: Greenery
+    uniqueID: 2600558439
+    locked: 0
