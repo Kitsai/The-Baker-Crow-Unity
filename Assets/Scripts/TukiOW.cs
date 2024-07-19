@@ -7,25 +7,25 @@ public class TukiOW : Player
     public override void Start()
     {
         base.Start();
-        _inputActions.Tuki.Attack.performed += ctx => OnAttack();
-        _inputActions.Tuki.Dodge.performed += ctx => OnDodge();
+        inputActions.Tuki.Attack.performed += ctx => OnAttack();
+        inputActions.Tuki.Dodge.performed += ctx => OnDodge();
     }
 
     public override void OnEnable()
     {
         base.OnEnable();
-        _inputActions.Tuki.Enable();
+        inputActions.Tuki.Enable();
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
-        _inputActions.Tuki.Disable();
+        inputActions.Tuki.Disable();
     }
 
     public void OnAttack()
     {
-        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED && _playerController.CanAttack)
+        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED && playerController.CanAttack)
         {
             SetPlayerState(PlayerState.ATTACKING);
         }

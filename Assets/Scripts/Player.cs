@@ -17,14 +17,13 @@ public class Player : MonoBehaviour
 
     public float hp = 3;
 
-    [SerializeField]
-    private Vector2 _movement;
+    Vector2 movement;
 
-    const float DODGE_TIME = .5f;
+    [SerializeField] float DODGE_TIME = .5f;
     public PlayerState State { get; protected set; }
 
-    protected PlayerController _playerController = null;
-    protected PlayerInputActions _inputActions = null;
+    protected PlayerController playerController = null;
+    protected PlayerInputActions inputActions = null;
 
     public virtual void Awake() 
     {
@@ -33,28 +32,28 @@ public class Player : MonoBehaviour
         else
             Instance = this;
 
-        _playerController = GetComponentInChildren<PlayerController>();
+        playerController = GetComponent<PlayerController>();
 
-        _inputActions = new PlayerInputActions();
-        _inputActions.Base.Enable();
+        inputActions = new PlayerInputActions();
+        inputActions.Base.Enable();
     }
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         State = PlayerState.STANDING;
-        _inputActions.Base.Movement.performed += ctx => _playerController.OnMovement(ctx.ReadValue<Vector2>()); 
-        _inputActions.Base.Movement.canceled += ctx => _playerController.OnMovement(Vector2.zero);
+        inputActions.Base.Movement.performed += ctx => playerController.OnMovement(ctx.ReadValue<Vector2>()); 
+        inputActions.Base.Movement.canceled += ctx => playerController.OnMovement(Vector2.zero);
     }
 
     public virtual void OnEnable()
     {
-        _inputActions.Base.Enable();
+        inputActions.Base.Enable();
     }
 
     public virtual void OnDisable()
     {
-        _inputActions.Base.Disable();
+        inputActions.Base.Disable();
     }
 
     // Update is called once per frame
@@ -63,17 +62,25 @@ public class Player : MonoBehaviour
         switch (State) 
         {
             case PlayerState.ATTACKING:
-                if(!_playerController.Attacking) SetPlayerState(PlayerState.STANDING);
-                break;
+                {
+                    if(!playerController.Attacking) SetPlayerState(PlayerState.STANDING);
+                    break;
+                }
             case PlayerState.DAMAGED:
-                if(!_playerController.Damaged) SetPlayerState(PlayerState.STANDING);
-                break;
+                {               
+                    if(!playerController.Damaged) SetPlayerState(PlayerState.STANDING);
+                    break;
+                }
             case PlayerState.WALKING:
-                if(_movement.magnitude == 0) SetPlayerState(PlayerState.STANDING);
-                break;
+                {
+                    if(movement.magnitude == 0) SetPlayerState(PlayerState.STANDING);
+                    break;
+                }
             case PlayerState.STANDING:
-                if(_movement.magnitude > 0) SetPlayerState(PlayerState.WALKING);
-                break;
+                {
+                    if(movement.magnitude > 0) SetPlayerState(PlayerState.WALKING);
+                    break;
+                }
             default:
                 break;
         }
@@ -96,13 +103,13 @@ public class Player : MonoBehaviour
         {
             case PlayerState.DAMAGED:
                 hp--;
-                _playerController.TakeDamageTrigger();
+                playerController.TakeDamageTrigger();
                 break;
             case PlayerState.ATTACKING:
-                _playerController.AttackTrigger();
+                playerController.AttackTrigger();
                 break;
             case PlayerState.DODGING:
-                _playerController.Dodge();
+                playerController.Dodge();
                 StartCoroutine(WaitAndSetState(PlayerState.STANDING, DODGE_TIME));
                 break;
             default:
