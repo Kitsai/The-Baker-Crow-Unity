@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attack
   - Enemy
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 1777970865
     locked: 0
   - name: Houses
     uniqueID: 2000926757
