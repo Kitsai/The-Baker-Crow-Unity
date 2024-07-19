@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1069178427330084433}
   - component: {fileID: 5371334633678269328}
   - component: {fileID: 3976335824720105311}
-  - component: {fileID: 7534513693121804066}
   m_Layer: 3
   m_Name: arbusto
   m_TagString: Untagged
@@ -170,30 +169,3 @@ PolygonCollider2D:
       - {x: 0.39, y: -0.56}
       - {x: 0.44, y: -0.48999998}
   m_UseDelaunayMesh: 0
---- !u!50 &7534513693121804066
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5804581547692821864}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

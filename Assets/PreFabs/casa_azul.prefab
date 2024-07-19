@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6749685900202702913}
   - component: {fileID: 8736957810685315012}
   - component: {fileID: 2580024963478563392}
-  - component: {fileID: 7329775203877448674}
   m_Layer: 0
   m_Name: casa_azul
   m_TagString: Untagged
@@ -131,30 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.84, y: 2.641366}
   m_EdgeRadius: 0
---- !u!50 &7329775203877448674
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035571109138146521}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
