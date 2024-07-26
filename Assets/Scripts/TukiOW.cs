@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class TukiOW : Player
 {     
-
-    public override void Start()
-    {
-        base.Start();
-    }
-
-
     public void OnAttack()
     {
         if((State is PlayerState.STANDING or PlayerState.WALKING)  && playerController.CanAttack) {
