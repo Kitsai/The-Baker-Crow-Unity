@@ -1,27 +1,13 @@
 using UnityEngine;
 
-
 public class TukiOW : Player
 {     
 
     public override void Start()
     {
         base.Start();
-        inputActions.Tuki.Attack.performed += ctx => OnAttack();
-        inputActions.Tuki.Dodge.performed += ctx => OnDodge();
     }
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        inputActions.Tuki.Enable();
-    }
-
-    public override void OnDisable()
-    {
-        base.OnDisable();
-        inputActions.Tuki.Disable();
-    }
 
     public void OnAttack()
     {
@@ -32,7 +18,7 @@ public class TukiOW : Player
     }
 
 
-    public void OnDodge()
+    public void OnDash()
     {
         if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
         {

@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     public PlayerState State { get; protected set; }
 
     protected PlayerController playerController = null;
-    protected PlayerInputActions inputActions = null;
 
     public virtual void Awake() 
     {
@@ -33,30 +32,13 @@ public class Player : MonoBehaviour
             Instance = this;
 
         playerController = GetComponent<PlayerController>();
-
-        inputActions = new PlayerInputActions();
-        inputActions.Base.Enable();
     }
 
-    // Start is called before the first frame update
     public virtual void Start()
     {
         State = PlayerState.STANDING;
-        inputActions.Base.Movement.performed += ctx => playerController.OnMovement(ctx.ReadValue<Vector2>()); 
-        inputActions.Base.Movement.canceled += ctx => playerController.OnMovement(Vector2.zero);
     }
 
-    public virtual void OnEnable()
-    {
-        inputActions.Base.Enable();
-    }
-
-    public virtual void OnDisable()
-    {
-        inputActions.Base.Disable();
-    }
-
-    // Update is called once per frame
     public virtual void Update()
     {
         switch (State) 

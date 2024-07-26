@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
     void Update() 
     {
-        animator.SetInteger("Facing", (int)Facing);
         if(!Attacking && !Damaged) animator.SetBool("Idle", rigidBody.velocity.magnitude <= 0.2f);
     }
     void LateUpdate() 
@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PerformDamage()
     {
-        Damaged = true;
         animator.SetTrigger("Damaged");
 
         yield return new WaitForSeconds(DAMAGED_TIME);
@@ -114,9 +113,9 @@ public class PlayerController : MonoBehaviour
         Damaged = false;
     }
 
-    public void OnMovement(Vector2 movement)
+    public void OnMove(InputValue value)
     {
-        axis = movement;
+        axis = value.Get<Vector2>();
         if(Math.Abs(axis.x) > Math.Abs(axis.y)) 
         {
             if(axis.x > 0) Facing = FaceDirection.Right;
@@ -127,5 +126,7 @@ public class PlayerController : MonoBehaviour
             if(axis.y > 0) Facing = FaceDirection.Up;
             else Facing = FaceDirection.Down;
         }
+        
+        animator.SetInteger("Facing", (int)Facing);
     }
 }
