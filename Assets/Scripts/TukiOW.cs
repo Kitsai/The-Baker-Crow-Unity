@@ -11,8 +11,7 @@ public class TukiOW : Player
 
     public void OnAttack()
     {
-        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED && playerController.CanAttack)
-        {
+        if((State is PlayerState.STANDING or PlayerState.WALKING)  && playerController.CanAttack) {
             SetPlayerState(PlayerState.ATTACKING);
         }
     }
@@ -20,7 +19,7 @@ public class TukiOW : Player
 
     public void OnDash()
     {
-        if(State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
+        if(State is PlayerState.STANDING or PlayerState.WALKING)
         {
             SetPlayerState(PlayerState.DODGING);
         }
@@ -33,7 +32,7 @@ public class TukiOW : Player
             DestroyPlayer();
         }
 
-        if(Input.GetKeyDown(KeyCode.K) && State != PlayerState.DODGING && State != PlayerState.ATTACKING && State != PlayerState.DAMAGED)
+        if(Input.GetKeyDown(KeyCode.K) && (State is PlayerState.STANDING or PlayerState.WALKING))
         {
             SetPlayerState(PlayerState.DAMAGED);
         }
