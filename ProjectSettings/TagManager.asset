@@ -50,9 +50,12 @@ TagManager:
   - name: Houses
     uniqueID: 2000926757
     locked: 0
+  - name: GreeneryBottom
+    uniqueID: 2600558439
+    locked: 0
   - name: Tuki
     uniqueID: 3436472553
     locked: 0
-  - name: Greenery
-    uniqueID: 2600558439
+  - name: GreeneryTop
+    uniqueID: 165479801
     locked: 0
