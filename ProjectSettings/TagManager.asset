@@ -47,14 +47,17 @@ TagManager:
   - name: Map
     uniqueID: 1777970865
     locked: 0
-  - name: Houses
-    uniqueID: 2000926757
-    locked: 0
   - name: Wall Bottom
     uniqueID: 2794593217
     locked: 0
   - name: GreeneryBottom
     uniqueID: 2600558439
+    locked: 0
+  - name: Fences
+    uniqueID: 2912484749
+    locked: 0
+  - name: Houses
+    uniqueID: 2000926757
     locked: 0
   - name: Tuki
     uniqueID: 3436472553
