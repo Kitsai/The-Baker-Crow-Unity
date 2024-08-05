@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - FimDoMapa
-  - 
+  - Objects
   - 
   - 
   - 
@@ -58,6 +58,9 @@ TagManager:
     locked: 0
   - name: Houses
     uniqueID: 2000926757
+    locked: 0
+  - name: Objects
+    uniqueID: 3012293721
     locked: 0
   - name: Tuki
     uniqueID: 3436472553
