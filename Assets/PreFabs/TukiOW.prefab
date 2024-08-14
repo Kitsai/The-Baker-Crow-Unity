@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1172938989230335453}
   - component: {fileID: 5709223678299556478}
   - component: {fileID: 6938569254397187936}
-  - component: {fileID: 2234379916186004886}
+  - component: {fileID: 6646043117379742866}
   m_Layer: 0
   m_Name: TukiOW
   m_TagString: Player
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -858494743
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 343967598, guid: 33dbf45a939fcb247a459c4aad7cfdc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   DODGE_TIME: 0.5
---- !u!60 &2234379916186004886
-PolygonCollider2D:
+--- !u!70 &6646043117379742866
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -245,33 +245,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.56, y: 0.64}
-    newSize: {x: 0.56, y: 0.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.029409215, y: 0.2442615}
-      - {x: -0.10756485, y: 0.15187375}
-      - {x: -0.095871925, y: 0.014872551}
-      - {x: -0.14159316, y: -0.05805616}
-      - {x: -0.17989159, y: -0.14035225}
-      - {x: -0.17180365, y: -0.23576164}
-      - {x: -0.08, y: -0.32}
-      - {x: 0.089999996, y: -0.32}
-      - {x: 0.1697895, y: -0.22152284}
-      - {x: 0.17993832, y: -0.14537525}
-      - {x: 0.1400013, y: -0.05626774}
-      - {x: 0.1528225, y: 0.052752495}
-      - {x: 0.15023917, y: 0.18225023}
-      - {x: 0.086272806, y: 0.2408297}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: 0.0019865036, y: -0.031778008}
+  m_Size: {x: 0.37330627, y: 0.576444}
+  m_Direction: 0
 --- !u!1 &4037598741918945119
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +320,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -858494743
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
