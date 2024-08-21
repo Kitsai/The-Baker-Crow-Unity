@@ -7,4 +7,8 @@ public class PauseMenu : MonoBehaviour
     {
         open = !open;
     }
+    void OnPause()
+    {
+        ToggleOpen();
+    }
 }

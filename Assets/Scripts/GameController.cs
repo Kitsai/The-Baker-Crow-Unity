@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameController : MonoBehaviour
 {
     [SerializeReference] PauseMenu pause;
     float timeScale = 1f;
+
 
     void Update()
     {
@@ -17,10 +18,6 @@ public class GameManager : MonoBehaviour
             pause.gameObject.SetActive(false);
             timeScale = 1f;
         }
-    }
-    void OnPause()
-    {
-        pause.ToggleOpen();
     }
     void LateUpdate()
     {
