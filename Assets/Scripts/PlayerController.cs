@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -128,5 +127,13 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetInteger("Facing", (int)Facing);
+    }
+    public void OnPause()
+    {
+        Debug.Log("Teste");
+    }
+    public void OnAttack()
+    {
+        Debug.Log("teste");
     }
 }

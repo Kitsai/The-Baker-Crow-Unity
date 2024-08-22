@@ -7,8 +7,20 @@ public class PauseMenu : MonoBehaviour
     {
         open = !open;
     }
-    void OnPause()
+    public void OnAttack()
     {
-        ToggleOpen();
+        Debug.Log("Ataque");
+    }
+    public void OnResume()
+    {
+        open = false;
+    }
+    public void OnSave()
+    {
+        Debug.Log("save");
+    }
+    public void OnExit()
+    {
+        Debug.Log("Exit");
     }
 }
