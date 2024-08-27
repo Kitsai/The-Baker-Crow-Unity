@@ -7,6 +7,7 @@ public class Stairs : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         PlayerController pc = other.GetComponent<PlayerController>();
-
+        if(pc.Facing == faceRequirement)
+            pc.transform.position = newPos; 
     }
 }
