@@ -1,12 +1,8 @@
 using UnityEngine;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : Menu
 {
     public bool open = false;
-    public void ToggleOpen()
-    {
-        open = !open;
-    }
     public void OnAttack()
     {
         Debug.Log("Ataque");

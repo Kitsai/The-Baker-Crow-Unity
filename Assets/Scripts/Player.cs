@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
 
     public static Player Instance {get; protected set;}
+    static bool[] inventory = new bool[8];
 
     public enum PlayerState 
     {
@@ -104,5 +105,10 @@ public class Player : MonoBehaviour
     protected void DestroyPlayer()
     {
         Destroy(gameObject);
+    }
+
+    public static bool[] GetInventory()
+    {
+        return inventory;
     }
 }

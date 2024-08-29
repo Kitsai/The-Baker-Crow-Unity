@@ -3,8 +3,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeReference] PauseMenu pause;
+    [SerializeReference] InventoryMenu inventory;     
     float timeScale = 1f;
-
     enum GameState
     {
         Running,
@@ -57,6 +57,32 @@ public class GameController : MonoBehaviour
     }
     public void OnPause()
     {
-        pause.ToggleOpen();
+        if(state == GameState.Running)
+        {
+            state = GameState.Paused;
+            inventory.OpenMenu();
+        }
+
+    }
+    public void OnInventory()
+    {
+        if(state == GameState.Running) 
+        {
+            state = GameState.Inventory;
+            inventory.OpenMenu();
+        }
+    }
+    public void OnExitMenu()
+    {
+        switch(state)
+        {
+            case GameState.Paused:
+                pause.CloseMenu(); break;
+            case GameState.Inventory:
+                pause.CloseMenu(); break;
+            default:
+                break;
+        }
+        state = GameState.Running;
     }
 }
