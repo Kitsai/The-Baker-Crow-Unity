@@ -422,15 +422,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ExitMenu",
-                    "type": "Button",
-                    "id": "27c04bd9-e48c-4497-947b-50029a62654f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "99f7a922-ee8b-42b0-8048-5bc10ccaa7c4",
@@ -889,28 +880,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f129ef2e-fc73-4424-a9e9-149e76d23aec",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ExitMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8ad12b98-6a15-40ff-b74b-12ae9a861ae7",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ExitMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

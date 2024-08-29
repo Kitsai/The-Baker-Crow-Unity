@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PauseMenu : Menu
 {
-    public bool open = false;
-    public void OnAttack()
+    GameController gc;
+    void Awake()
     {
-        Debug.Log("Ataque");
+        gc = FindObjectOfType<GameController>();
     }
     public void OnResume()
     {
-        open = false;
+       gc.SetState(GameController.GameState.Running);
     }
     public void OnSave()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Menu: MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public void ToggleOpen()
     {
@@ -13,5 +13,9 @@ public class Menu: MonoBehaviour
     public void OpenMenu()
     {
         gameObject.SetActive(true);
+    }
+    public bool IsOpen()
+    {
+        return gameObject.activeSelf;
     }
 }

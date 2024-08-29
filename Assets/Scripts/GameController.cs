@@ -2,87 +2,71 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeReference] PauseMenu pause;
-    [SerializeReference] InventoryMenu inventory;     
-    float timeScale = 1f;
-    enum GameState
+    const int NUM_MENUS = 4;
+    [SerializeReference] Menu[] menus = new Menu[NUM_MENUS];
+    static float timeScale = 1f;
+    static bool startSequence = true;
+    public enum GameState
     {
-        Running,
-        Paused,
-        Inventory,
-        Puzzle,
+        Running = -1,
+        Paused = 0,
+        Inventory = 1,
+        Puzzle = 2,
+        Cutscene = 3,
     }
-    GameState state = GameState.Running;
-    void Update()
+    void Start()
     {
-        if (state != GameState.Running) 
-        {
-            timeScale = 0f;
-        }
-        else 
-        {
-            timeScale = 1f;
-        }
-        if (pause.open) 
-        {
-            pause.gameObject.SetActive(true);
-            timeScale = 0f;
-        } 
-        else
-        {
-            pause.gameObject.SetActive(false);
-            timeScale = 1f;
-        }
+        if(startSequence)
+            Player.Instance.transform.position = new Vector2(-34.31f,-27.32f);
+        RunStartSequence();
     }
-    void SetGameState(GameState newState)
+    static GameState state = GameState.Running;
+    public GameState GetState()
     {
-        switch (state)
+        return state;
+    }
+    public void SetState(GameState newState)
+    {
+        switch (newState)
         {
+            case GameState.Running:
+                if(!state.Equals(GameState.Running))
+                {
+                    menus[(int)state].CloseMenu();
+                    state = GameState.Running;
+                }
+                timeScale = 1f;
+                break;
             case GameState.Paused:
-                pause.gameObject.SetActive(true); break;
+            case GameState.Inventory:
+            case GameState.Puzzle:
+                if(state.Equals(GameState.Running))
+                {
+                    state = newState;
+                    menus[(int)newState].OpenMenu();
+                }
+                timeScale = 0f;
+                break;
             default:
                 break;
+                
         }
-        switch (newState) 
-        {
-            case GameState.Paused:
-                pause.gameObject.SetActive(true); break;
-            default:
-                break;
-        }
-    }        
+    }
     void LateUpdate()
     {
         Time.timeScale = timeScale;
     }
     public void OnPause()
     {
-        if(state == GameState.Running)
-        {
-            state = GameState.Paused;
-            inventory.OpenMenu();
-        }
-
+        if(state.Equals(GameState.Running)) SetState(GameState.Paused);
+        else SetState(GameState.Running);
     }
     public void OnInventory()
     {
-        if(state == GameState.Running) 
-        {
-            state = GameState.Inventory;
-            inventory.OpenMenu();
-        }
+        SetState(GameState.Inventory);
     }
-    public void OnExitMenu()
+    void RunStartSequence()
     {
-        switch(state)
-        {
-            case GameState.Paused:
-                pause.CloseMenu(); break;
-            case GameState.Inventory:
-                pause.CloseMenu(); break;
-            default:
-                break;
-        }
-        state = GameState.Running;
+        startSequence = false;
     }
 }
