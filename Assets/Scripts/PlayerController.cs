@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float DAMAGED_TIME = .5f;
 
     // PROPERTIES
-    public FaceDirection Facing {get; private set;}
+    public FaceDirection Facing;
     public Vector2 axis;
     private bool dash = false;
     public bool Attacking {get; private set;}
@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        Facing = FaceDirection.Down;
         CanAttack = true;
     }
 

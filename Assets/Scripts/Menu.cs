@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    public void ToggleOpen()
+    virtual public void ToggleOpen()
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
-    public void CloseMenu()
+    virtual public void CloseMenu()
     {
         gameObject.SetActive(false);
     }
-    public void OpenMenu()
+    virtual public void OpenMenu()
     {
         gameObject.SetActive(true);
     }
-    public bool IsOpen()
+    virtual public bool IsOpen()
     {
         return gameObject.activeSelf;
     }
