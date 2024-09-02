@@ -14,6 +14,15 @@ public class GameController : MonoBehaviour
         Puzzle = 2,
         Cutscene = 3,
     }
+    public static GameController Instance {get; private set;}
+    void Awake()
+    {
+        if(Instance != this)
+        {
+            Destroy(Instance);
+        }
+        Instance = this;
+    }
     void Start()
     {
         if(startSequence)

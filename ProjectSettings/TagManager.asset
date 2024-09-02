@@ -7,6 +7,8 @@ TagManager:
   - Attack
   - Enemy
   - Tree
+  - puzzle
+  - Client
   layers:
   - Default
   - TransparentFX
