@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TukiOW : Player
 {     
@@ -31,5 +32,12 @@ public class TukiOW : Player
         }
 
         base.Update();
+    }
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Bakery") && playerController.Facing.Equals(PlayerController.FaceDirection.Up))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
