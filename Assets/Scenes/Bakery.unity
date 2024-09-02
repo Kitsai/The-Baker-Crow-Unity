@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 135999162}
   m_Layer: 0
   m_Name: PuzzleTrigger
-  m_TagString: puzzle
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2020,8 +2020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164d757d0c237a439ada3f496db784ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleCamera: {fileID: 1300312322}
   baseCamera: {fileID: 1836078960}
-  mainCamera: {fileID: 0}
 --- !u!1 &937957732
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,7 +4162,7 @@ GameObject:
   - component: {fileID: 1881156420}
   m_Layer: 0
   m_Name: ClientTrigger
-  m_TagString: Untagged
+  m_TagString: Client
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
