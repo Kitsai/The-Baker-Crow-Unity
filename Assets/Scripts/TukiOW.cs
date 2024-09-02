@@ -3,13 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class TukiOW : Player
 {     
+    public override void Start()
+    {
+        base.Start();
+        playerController.Facing = PlayerController.FaceDirection.Down;
+    }
     public void OnAttack()
     {
         if((State is PlayerState.STANDING or PlayerState.WALKING)  && playerController.CanAttack) {
             SetPlayerState(PlayerState.ATTACKING);
         }
     }
-
 
     public void OnDash()
     {

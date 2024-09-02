@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    void Start()
+    protected virtual void Start()
     {
         CanAttack = true;
     }

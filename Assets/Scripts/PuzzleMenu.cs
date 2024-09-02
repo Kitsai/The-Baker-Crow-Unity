@@ -8,11 +8,17 @@ public class PuzzleMenu : Menu
     [SerializeReference] CinemachineVirtualCamera puzzleCamera;
     [SerializeReference] CinemachineVirtualCamera baseCamera;
 
-    void Awake()
+    public void OnEnable()
     {
-        puzzleCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        CameraSwitcher.Register(baseCamera);
+        CameraSwitcher.Register(puzzleCamera);
+        CameraSwitcher.SwitchCamera(baseCamera);
     }
-
+    public void OnDisable()
+    {
+        CameraSwitcher.Unregister(baseCamera);
+        CameraSwitcher.Unregister(puzzleCamera);
+    }
     public override bool IsOpen()
     {
         return open;
@@ -20,18 +26,18 @@ public class PuzzleMenu : Menu
     
     public override void OpenMenu()
     {
-        baseCamera.gameObject.SetActive(false); 
-        puzzleCamera.gameObject.SetActive(true);
+        CameraSwitcher.SwitchCamera(puzzleCamera);
     }
     public override void CloseMenu()
     {
-        baseCamera.gameObject.SetActive(true);
-        puzzleCamera.gameObject.SetActive(false);
+        CameraSwitcher.SwitchCamera(baseCamera);
     }
 
     public override void ToggleOpen()
     {
-        baseCamera.gameObject.SetActive(!baseCamera.gameObject.activeSelf);
-        puzzleCamera.gameObject.SetActive(!puzzleCamera.gameObject.activeSelf);
+        if(CameraSwitcher.IsActiveCamera(puzzleCamera))
+            CameraSwitcher.SwitchCamera(baseCamera);
+        else if(CameraSwitcher.IsActiveCamera(baseCamera))
+            CameraSwitcher.SwitchCamera(puzzleCamera);
     }
 }
