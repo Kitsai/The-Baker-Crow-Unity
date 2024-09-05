@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour
     const int NUM_MENUS = 4;
     [SerializeReference] Menu[] menus = new Menu[NUM_MENUS];
     static float timeScale = 1f;
-    static bool startSequence = true;
+        static bool startSequence = true;
     public enum GameState
     {
         Running = -1,
@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(menus[(int)GameState.Paused].gameObject);
+        DontDestroyOnLoad(menus[(int)GameState.Inventory].gameObject);
     }
     void Start()
     {
