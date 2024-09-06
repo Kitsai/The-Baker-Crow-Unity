@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class Ingredient : ScriptableObject
+public class IngredientSO : ScriptableObject
 {
     public enum IngredientType
     {
@@ -14,4 +14,6 @@ public class Ingredient : ScriptableObject
         Flour,
         Sugar,
     }
+    [SerializeReference] Sprite ingredientImage;
+
 }
