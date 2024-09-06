@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu]
 public class EnemySO : ScriptableObject
 {
     [Header("BaseDate")]
@@ -8,7 +9,6 @@ public class EnemySO : ScriptableObject
     [SerializeField] float attackDistance = 20;
     [SerializeField] int health = 100;
     [Header("Sounds")]
-    [SerializeReference] AudioClip deathSound;
     [SerializeReference] AudioClip attackSound;
     [Header("Animations")]
     [SerializeReference] RuntimeAnimatorController animatorController;
@@ -29,13 +29,9 @@ public class EnemySO : ScriptableObject
     {
         return health;
     }
-    public void PlayDeathSound(AudioSource source)
-    {
-        source.Play(deathSound);
-    }
     public void PlayAttackSound(AudioSource source)
     {
-        source.Play(attackSound);
+        source.PlayOneShot(attackSound);
     }
     public RuntimeAnimatorController GetAnimatorController()
     {

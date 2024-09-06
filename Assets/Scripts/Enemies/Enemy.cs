@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rigidBody = null;
     protected Animator animator = null;
     protected AudioSource audioSource = null;
-    protected Collider2D collider = null;
     [SerializeReference] protected EnemySO metadata;
 
     public const float DAMAGED_INVULNERABILITY_TIME = 0.5f;
@@ -16,8 +15,7 @@ public class Enemy : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        collider = GetComponent<Collider2D>();
-        State = EnemyState.Idling;
+        SetState(EnemyState.Idling);
         animator.runtimeAnimatorController = metadata.GetAnimatorController();
         Hp = metadata.GetHealth();
     }
@@ -59,11 +57,10 @@ public class Enemy : MonoBehaviour
         float idleTime = Random.Range(0, 5000) * 0.001f + 2;
         yield return new WaitForSeconds(idleTime);
         if(CheckAttack()) SetState(EnemyState.Attacking);
-        else SetState(EnemyState.Idling);
+        else SetState(EnemyState.Moving);
     }
     protected virtual IEnumerator WaitAttackAnimation()
     {
-        metadata.PlayAttackSound(audioSource);
         animator.GetNextAnimatorClipInfo(0);
         float attackAnimationTime = 0f;
 
@@ -75,11 +72,11 @@ public class Enemy : MonoBehaviour
 
     protected virtual IEnumerator WaitForDamageInterval()
     {
-       collider.enabled = false; 
+       GetComponent<Collider>().enabled = false; 
 
        yield return new WaitForSeconds(DAMAGED_INVULNERABILITY_TIME);
 
-       collider.enabled = true;
+       GetComponent<Collider>().enabled = true;
        SetState(EnemyState.Idling);
     }
     
@@ -95,13 +92,18 @@ public class Enemy : MonoBehaviour
         {
             case EnemyState.Moving:
                 moveTarget = transform.position + new Vector3(Random.Range(0,100) - 50, Random.Range(0,100) - 50, 0); 
+                animator.SetBool("Moving", true);
+                transform.localScale = new Vector2(Mathf.Sign(moveTarget.x), 1f);
                 break;
             case EnemyState.Idling:
+                animator.SetBool("Moving", false);
                 StartCoroutine(WaitIdleTime());
                 break;
             case EnemyState.Damaged:
                 break;
             case EnemyState.Attacking:
+                metadata.PlayAttackSound(audioSource);
+                animator.SetTrigger("Attack");
                 StartCoroutine(WaitAttackAnimation());
                 break;
         }
@@ -115,7 +117,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            Vector2.MoveTowards(transform.position, moveTarget, metadata.GetSpeed()*Time.deltaTime);  
+            transform.position = Vector2.MoveTowards(transform.position, moveTarget, metadata.GetSpeed()*Time.deltaTime);  
         }
     }
     protected bool CheckAttack()
@@ -135,5 +137,9 @@ public class Enemy : MonoBehaviour
        animator.SetTrigger("Death");
        DropItem();
        StartCoroutine(WaitAndDestroy(animator.GetCurrentAnimatorStateInfo(0).length)); 
+    }
+    public void ReceiveDamage(int damage)
+    {
+        Hp -= damage;
     }
 }
