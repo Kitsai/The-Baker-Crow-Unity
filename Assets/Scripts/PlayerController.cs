@@ -45,13 +45,13 @@ public class PlayerController : MonoBehaviour
 
     void Update() 
     {
-        if(!Attacking && !Damaged) animator.SetBool("Idle", rigidBody.velocity.magnitude <= 0.2f);
+        if(!Attacking && !Damaged) animator.SetBool("Idle", rigidBody.linearVelocity.magnitude <= 0.2f);
     }
     void LateUpdate() 
     {
         if(Attacking || Damaged) 
         {
-            rigidBody.velocity = Vector2.zero;
+            rigidBody.linearVelocity = Vector2.zero;
             rigidBody.totalForce = Vector2.zero;
             Facing = FaceDirection.Down;
         }  
@@ -111,14 +111,14 @@ public class PlayerController : MonoBehaviour
         Damaged = false;
     }
 
-    public void OnMove(InputValue value)
+    public void Move(InputAction.CallbackContext context)
     {
-        axis = value.Get<Vector2>();
-        if(Math.Abs(axis.x) > Math.Abs(axis.y)) 
+        axis = context.ReadValue<Vector2>();
+        if (Math.Abs(axis.x) > Math.Abs(axis.y))
         {
             if(axis.x > 0) Facing = FaceDirection.Right;
             else Facing = FaceDirection.Left;
-        } 
+        }
         else if (Math.Abs(axis.x) < Math.Abs(axis.y))
         {
             if(axis.y > 0) Facing = FaceDirection.Up;
@@ -126,13 +126,5 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetInteger("Facing", (int)Facing);
-    }
-    public void OnPause()
-    {
-        Debug.Log("Teste");
-    }
-    public void OnAttack()
-    {
-        Debug.Log("teste");
     }
 }

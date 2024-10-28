@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         if(startSequence)
-            Player.Instance.transform.position = new Vector2(-34.31f,-27.32f);
+            Player.Instance.transform.position = new Vector2(-23.05f,-6.32f);
         RunStartSequence();
     }
     static GameState state = GameState.Running;
@@ -68,12 +69,13 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = timeScale;
     }
-    public void OnPause()
+    public void OnPause(InputAction.CallbackContext _)
     {
+        Debug.Log("Pause");
         if(state.Equals(GameState.Running)) SetState(GameState.Paused);
         else SetState(GameState.Running);
     }
-    public void OnInventory()
+    public void OnInventory(InputAction.CallbackContext _)
     {
         SetState(GameState.Inventory);
     }

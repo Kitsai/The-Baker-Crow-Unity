@@ -1,12 +1,12 @@
 using UnityEngine;
-using Cinemachine;
+using Unity.Cinemachine;
 
 public class PuzzleMenu : Menu
 {
     bool open = false;
 
-    [SerializeReference] CinemachineVirtualCamera puzzleCamera;
-    [SerializeReference] CinemachineVirtualCamera baseCamera;
+    [SerializeReference] CinemachineCamera puzzleCamera;
+    [SerializeReference] CinemachineCamera baseCamera;
 
     public void OnEnable()
     {

@@ -3,9 +3,10 @@ using UnityEngine;
 public class PauseMenu : Menu
 {
     GameController gc;
+
     void Awake()
     {
-        gc = FindObjectOfType<GameController>();
+        gc = FindAnyObjectByType<GameController>();
     }
     public void OnResume()
     {

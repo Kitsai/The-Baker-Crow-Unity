@@ -15,9 +15,10 @@ public class Enemy : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        SetState(EnemyState.Idling);
         animator.runtimeAnimatorController = metadata.GetAnimatorController();
+        SetState(EnemyState.Idling);
         Hp = metadata.GetHealth();
+        if(metadata.IsAttacker()) metadata.SetAttackSound(audioSource);
     }
     virtual public void Update()
     {
@@ -91,7 +92,7 @@ public class Enemy : MonoBehaviour
         switch(newState)
         {
             case EnemyState.Moving:
-                moveTarget = transform.position + new Vector3(Random.Range(0,100) - 50, Random.Range(0,100) - 50, 0); 
+                moveTarget = transform.position + new Vector3(Random.Range(0,20) - 10, Random.Range(0,20) - 10, 0); 
                 animator.SetBool("Moving", true);
                 transform.localScale = new Vector2(Mathf.Sign(moveTarget.x), 1f);
                 break;
@@ -113,11 +114,13 @@ public class Enemy : MonoBehaviour
         if(Vector2.Distance(moveTarget,(Vector2)transform.position) < Mathf.Epsilon)
         {
             transform.position = moveTarget;
+            rigidBody.position = Vector2.zero;
             SetState(EnemyState.Idling);
         }
         else
         {
             transform.position = Vector2.MoveTowards(transform.position, moveTarget, metadata.GetSpeed()*Time.deltaTime);  
+            rigidBody.linearVelocity = (moveTarget - (Vector2)transform.position).normalized * metadata.GetSpeed();
         }
     }
     protected bool CheckAttack()
@@ -141,5 +144,11 @@ public class Enemy : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         Hp -= damage;
+    }
+    public void OnCollisionEnter2D()
+    {
+        moveTarget = transform.position;
+        rigidBody.linearVelocity = Vector2.zero;
+        SetState(EnemyState.Idling);
     }
 }
