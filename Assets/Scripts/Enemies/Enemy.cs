@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
             case EnemyState.Moving:
                 moveTarget = transform.position + new Vector3(Random.Range(0,20) - 10, Random.Range(0,20) - 10, 0); 
                 animator.SetBool("Moving", true);
-                transform.localScale = new Vector2(Mathf.Sign(moveTarget.x), 1f);
+                transform.localScale = new Vector2(Mathf.Sign(moveTarget.x - transform.position.x), 1f);
                 break;
             case EnemyState.Idling:
                 animator.SetBool("Moving", false);
@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour
         if(Vector2.Distance(moveTarget,(Vector2)transform.position) < Mathf.Epsilon)
         {
             transform.position = moveTarget;
-            rigidBody.position = Vector2.zero;
+            rigidBody.linearVelocity = Vector3.zero;
             SetState(EnemyState.Idling);
         }
         else

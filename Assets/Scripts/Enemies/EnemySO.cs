@@ -4,9 +4,9 @@ using UnityEngine;
 public class EnemySO : ScriptableObject
 {
     [Header("BaseDate")]
-    [SerializeField] float speed = 1f;
+    [SerializeField] float speed = 2f;
     [SerializeField] bool attacker = false;
-    [SerializeField] float attackDistance = 10;
+    [SerializeField] float attackDistance = 5;
     [SerializeField] int health = 100;
     [Header("Sounds")]
     [SerializeReference] AudioClip attackSound;

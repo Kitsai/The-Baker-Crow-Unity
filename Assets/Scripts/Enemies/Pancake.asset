@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   attacker: 0
-  attackDistance: 20
+  attackDistance: 5
   health: 100
   attackSound: {fileID: 0}
   animatorController: {fileID: 9100000, guid: 488f6c1e4c8d27f79b6c3d8f7f7caeb8, type: 2}
