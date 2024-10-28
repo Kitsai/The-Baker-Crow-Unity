@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum FaceDirection 
+    public enum FaceDirection
     {
         Up,
         Down,
         Left,
-        Right
+        Right,
     }
 
     // COMPONENTS
@@ -18,48 +18,59 @@ public class PlayerController : MonoBehaviour
     Animator animator = null;
 
     // CONSTANTS
-    [SerializeField] float BASE_FORCE = 20.0f;
-    [SerializeField] float DODGE_FORCE = 1200f;
+    [SerializeField]
+    float BASE_FORCE = 20.0f;
 
-    [SerializeField] float ATTACK_TIME = .4f;
-    [SerializeField] float ATTACK_COOLDOWN = 1.0f;
-    [SerializeField] float DAMAGED_TIME = .5f;
+    [SerializeField]
+    float DODGE_FORCE = 1200f;
+
+    [SerializeField]
+    float ATTACK_TIME = .4f;
+
+    [SerializeField]
+    float ATTACK_COOLDOWN = 1.0f;
+
+    [SerializeField]
+    float DAMAGED_TIME = .5f;
 
     // PROPERTIES
     public FaceDirection Facing;
     public Vector2 axis;
     private bool dash = false;
-    public bool Attacking {get; private set;}
-    public bool CanAttack {get; private set;}
-    public bool Damaged {get; private set;}
+    public bool Attacking { get; private set; }
+    public bool CanAttack { get; private set; }
+    public bool Damaged { get; private set; }
 
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
     protected virtual void Start()
     {
         CanAttack = true;
     }
 
-    void Update() 
+    void Update()
     {
-        if(!Attacking && !Damaged) animator.SetBool("Idle", rigidBody.linearVelocity.magnitude <= 0.2f);
+        if (!Attacking && !Damaged)
+            animator.SetBool("Idle", rigidBody.linearVelocity.magnitude <= 0.2f);
     }
-    void LateUpdate() 
+
+    void LateUpdate()
     {
-        if(Attacking || Damaged) 
+        if (Attacking || Damaged)
         {
             rigidBody.linearVelocity = Vector2.zero;
             rigidBody.totalForce = Vector2.zero;
             Facing = FaceDirection.Down;
-        }  
+        }
     }
 
     void FixedUpdate()
     {
-        if(dash)
+        if (dash)
         {
             rigidBody.AddForce(DODGE_FORCE * new Vector2(axis.x, axis.y));
             dash = false;
@@ -68,15 +79,15 @@ public class PlayerController : MonoBehaviour
         rigidBody.AddForce(new Vector2(axis.x, axis.y) * BASE_FORCE);
     }
 
-
-    public void Dodge() 
+    public void Dodge()
     {
         dash = true;
     }
 
-    public void AttackTrigger() 
+    public void AttackTrigger()
     {
-        if(!Attacking) StartCoroutine(PerformAttack());
+        if (!Attacking)
+            StartCoroutine(PerformAttack());
     }
 
     private IEnumerator PerformAttack()
@@ -97,9 +108,10 @@ public class PlayerController : MonoBehaviour
         CanAttack = true;
     }
 
-    public void TakeDamageTrigger() 
+    public void TakeDamageTrigger()
     {
-        if(!Damaged) StartCoroutine(PerformDamage());
+        if (!Damaged)
+            StartCoroutine(PerformDamage());
     }
 
     private IEnumerator PerformDamage()
@@ -116,15 +128,19 @@ public class PlayerController : MonoBehaviour
         axis = context.ReadValue<Vector2>();
         if (Math.Abs(axis.x) > Math.Abs(axis.y))
         {
-            if(axis.x > 0) Facing = FaceDirection.Right;
-            else Facing = FaceDirection.Left;
+            if (axis.x > 0)
+                Facing = FaceDirection.Right;
+            else
+                Facing = FaceDirection.Left;
         }
         else if (Math.Abs(axis.x) < Math.Abs(axis.y))
         {
-            if(axis.y > 0) Facing = FaceDirection.Up;
-            else Facing = FaceDirection.Down;
+            if (axis.y > 0)
+                Facing = FaceDirection.Up;
+            else
+                Facing = FaceDirection.Down;
         }
-        
+
         animator.SetInteger("Facing", (int)Facing);
     }
 }
